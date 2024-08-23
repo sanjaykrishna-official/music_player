@@ -1,6 +1,6 @@
 // List of songs
 const songs = ['music/devara_song.mp3', 'music/big_dawgs.mp3'];
-const songTitles = ['music/devara_song.mp3', 'music/big_dawgs.mp3'];
+const songTitles = ['Chuttamalle', 'big dawgs'];
 
 // Track the current song index
 let currentSongIndex = 0;
