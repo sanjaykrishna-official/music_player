@@ -1,15 +1,16 @@
 // List of songs
 const songs = ['music/devara_song.mp3', 'music/big_dawgs.mp3'];
-const songTitles = ['Chuttamalle', 'big dawgs'];
+const songTitles = ['Chuttamalle', 'Big Dawgs'];
 
-// Track the current song index
+// Track the current song index and repeat mode
 let currentSongIndex = 0;
+let isRepeatModeOn = false; // Repeat mode is off by default
 
 // Get the audio element, buttons, and other elements
 const audio = document.getElementById('audio');
 const audioSource = document.getElementById('audio-source');
 const prevButton = document.getElementById('prev');
-const replayButton = document.getElementById('replay');
+const repeatButton = document.getElementById('repeat');
 const nextButton = document.getElementById('next');
 const currentSongTitle = document.getElementById('current-song-title');
 const songListItems = document.querySelectorAll('.song-item');
@@ -22,11 +23,12 @@ function loadSong(index) {
     audio.load(); // Reload the audio element with the new source
 }
 
-// Play the current song (after user interaction)
+// Play the current song after user interaction
 function playSong() {
     audio.play().catch(error => {
         console.error('Playback failed:', error);
-        alert('Please interact with the document first.');
+        // Optionally, provide feedback to the user
+        alert('Please click to start the audio.');
     });
 }
 
@@ -37,17 +39,17 @@ function updatePlaylistHighlight(index) {
     });
 }
 
+// Toggle repeat mode
+repeatButton.addEventListener('click', () => {
+    isRepeatModeOn = !isRepeatModeOn;
+    repeatButton.textContent = isRepeatModeOn ? 'Repeat On' : 'Repeat Off';
+});
+
 // Play the previous song
 prevButton.addEventListener('click', () => {
     currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
     loadSong(currentSongIndex);
     playSong(); // Play the song after loading
-});
-
-// Replay the current song
-replayButton.addEventListener('click', () => {
-    audio.currentTime = 0;
-    playSong(); // Replay the song
 });
 
 // Play the next song
@@ -66,13 +68,25 @@ songListItems.forEach((item, index) => {
     });
 });
 
-// Initialize with the first song
-loadSong(currentSongIndex);
-
-// Add an event listener to the play button or any user interaction event
-document.addEventListener('click', () => {
-    // Only play the song after the first user interaction
-    if (!audio.paused) {
+// Automatically play next song or repeat the current song
+audio.addEventListener('ended', () => {
+    if (isRepeatModeOn) {
+        audio.currentTime = 0; // Repeat the current song
+        playSong();
+    } else {
+        currentSongIndex = (currentSongIndex + 1) % songs.length; // Move to the next song
+        loadSong(currentSongIndex);
         playSong();
     }
-}, { once: true }); // The listener is removed after the first interaction
+});
+
+// Initialize with the first song without playing
+loadSong(currentSongIndex);
+
+// Example: Use an initial user interaction to start playing
+// You can use any other event that signifies user interaction
+document.addEventListener('click', function initialPlay() {
+    playSong();
+    // Remove this event listener after the first interaction
+    document.removeEventListener('click', initialPlay);
+}, { once: true });

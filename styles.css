@@ -28,6 +28,10 @@ body {
 }
 
 .current-song {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
     border-right: 1px solid #ddd;
 }
 
@@ -37,12 +41,22 @@ body {
 
 h2 {
     margin-top: 0;
+    text-align: center; /* Center the text */
+}
+
+audio {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 300px; /* Set a max-width for the audio player */
 }
 
 .controls {
     display: flex;
     justify-content: space-around;
+    width: 100%;
+    max-width: 300px;  /* Align controls with the audio player */
     margin-top: 10px;
+    /* align-items: center; */
 }
 
 button {
@@ -78,6 +92,7 @@ button:hover {
     font-weight: bold;
 }
 
+
 /* Media Query for Mobile Devices */
 @media (max-width: 768px) {
     .container {
@@ -89,9 +104,5 @@ button:hover {
     .box {
         margin: 10px 0; /* Space between the boxes */
         width: 100%; /* Full width on smaller screens */
-    }
-
-    body {
-        background-size: cover; /* Ensure the background image covers the entire screen */
     }
 }
