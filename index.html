@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left box displaying current song -->
+        <div class="box current-song">
+            <h2 id="current-song-title">Now Playing: Song 1</h2>
+            <audio id="audio" controls>
+                <source id="audio-source" src="song1.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="controls">
+                <button id="prev">Previous</button>
+                <button id="replay">Replay</button>
+                <button id="next">Next</button>
+            </div>
+        </div>
+
+        <!-- Right box displaying the playlist -->
+        <div class="box playlist">
+            <h2>Playlist</h2>
+            <ul id="song-list">
+                <li class="song-item active">Chuttamalle</li>
+                <li class="song-item">Big Dawgs</li>
+                <!-- <li class="song-item">Song 3</li> -->
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
